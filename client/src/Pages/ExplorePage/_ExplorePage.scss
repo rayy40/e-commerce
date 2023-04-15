@@ -1,0 +1,19 @@
+.explore-page-container {
+  width: 100%;
+  margin: 6.5em 0 0;
+  padding: 2em 2em 0;
+  font-family: "Hanken Grotesk", sans-serif;
+}
+
+@media only screen and (max-width: 1024px) {
+  .explore-page-container {
+    padding: 1.5em 1.25em 0.25em;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .explore-page-container {
+    margin-top: 5em;
+    padding: 1.5em 1.25em 0.25em;
+  }
+}

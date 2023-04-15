@@ -1,0 +1,94 @@
+@import "../../Components/AccountOverview/AccountOverview";
+@import "../../Components/AccountRegister/AccountRegister";
+@import "../../Components/AccountLogin/AccountLogin";
+
+.account-page-container {
+  margin-top: 8em;
+  padding: 2em 2.5em;
+  font-family: "Hanken Grotesk", sans-serif;
+  display: flex;
+  color: #333;
+  &__left {
+    margin-top: -8em;
+    padding-top: 8em;
+    position: sticky;
+    top: 0;
+    width: 22.5%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4.25em;
+    ul {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5em;
+      a {
+        width: fit-content;
+        text-decoration: none;
+        color: #333;
+        font-size: 0.95rem;
+        position: relative;
+        cursor: pointer;
+        &:hover {
+          &:after {
+            transform: scaleX(1);
+            transform-origin: left;
+            transition-delay: 0s;
+          }
+        }
+        &:after {
+          content: " ";
+          position: absolute;
+          left: 0;
+          bottom: -3.5px;
+          width: 100%;
+          background: #000;
+          color: transparent;
+          opacity: 0.6;
+          height: 1px;
+          transform-origin: right;
+          transform: scaleX(0);
+          transition: transform 0.7s cubic-bezier(0.19, 1, 0.22, 1) 0.2s;
+        }
+      }
+    }
+  }
+  &__right {
+    width: 77.5%;
+    max-width: 1024px;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .account-page-container {
+    padding: 1.5em 1.25em;
+    flex-direction: column;
+    gap: 7em;
+    &__left {
+      width: 100%;
+      gap: 2em;
+      position: relative;
+      inset: 0;
+    }
+    &__right {
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .account-page-container {
+    margin-top: 5em;
+    padding: 1.5em 1.25em;
+    position: relative;
+    inset: 0;
+    &__left {
+      p {
+        font-size: 0.925rem;
+      }
+    }
+  }
+}
