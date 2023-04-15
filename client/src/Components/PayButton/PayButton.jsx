@@ -12,10 +12,13 @@ const PayButton = ({ cartItems, setIsLoading }) => {
   const handleCheckout = () => {
     setIsLoading(true);
     axios
-      .post(`http://localhost:5000/stripe/create-checkout-session`, {
-        cartItems,
-        userId: authState?._id,
-      })
+      .post(
+        `https://e-commerce-c8nd.onrender.com/stripe/create-checkout-session`,
+        {
+          cartItems,
+          userId: authState?._id,
+        }
+      )
       .then((res) => {
         setIsLoading(false);
         if (res.data.url) {

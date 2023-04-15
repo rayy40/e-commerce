@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       const response = await axios.post(
-        `https://e-commerce-c8nd.onrender.com/account/register`,
+        `https://next-ecommerce.onrender.com/account/register`,
         {
           firstName: values.firstName,
           lastName: values.lastName,
@@ -92,7 +92,7 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       const token = await axios.post(
-        `https://e-commerce-c8nd.onrender.com/account/login`,
+        `https://next-ecommerce.onrender.com/account/login`,
         {
           email: values.email,
           password: values.password,
@@ -134,7 +134,7 @@ export const AuthProvider = ({ children }) => {
   const getUser = async (id) => {
     try {
       const token = await axios.get(
-        `https://e-commerce-c8nd.onrender.com/user/${id}`,
+        `https://next-ecommerce.onrender.com/user/${id}`,
         setHeaders()
       );
 
