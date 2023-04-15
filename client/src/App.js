@@ -13,7 +13,8 @@ import SearchPage from "./Pages/SearchPage/SearchPage";
 import { AuthProvider } from "./Helpers/AuthContext";
 import { SearchProvider } from "./Helpers/SearchContext";
 import AccountPage from "./Pages/AccountPage/AccountPage";
-import CheckoutSuccess from "./Pages/CheckoutSuccess/CheckoutSuccess";
+import CheckoutSuccess from "./Pages/Checkout/CheckoutSuccess";
+import CheckoutFailed from "./Pages/Checkout/CheckoutFailed";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
                   <Route path="/search/:name?" component={SearchPage} />
                   <Route path="/account" component={AccountPage} />
                   <Route path="/checkout-success" component={CheckoutSuccess} />
+                  <Route path="/checkout-failed" component={CheckoutFailed} />
                 </Switch>
               </div>
             </CartProvider>

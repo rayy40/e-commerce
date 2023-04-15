@@ -4588,6 +4588,69 @@ td {
   }
 }
 
+.checkout-container {
+  font-family: "Hanken Grotesk", sans-serif;
+  padding: 2em 2.5em;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 1em;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+}
+
+.checkout-container h3 {
+  font-weight: 500;
+  font-size: 1.25rem;
+}
+
+.checkout-container a {
+  text-decoration: none;
+  color: #333;
+  position: relative;
+  cursor: pointer;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.checkout-container a::after {
+  position: absolute;
+  left: 0;
+  bottom: 0.5px;
+  content: " ";
+  width: 100%;
+  height: 1px;
+  background: #333;
+  -webkit-transform: scaleX(1);
+          transform: scaleX(1);
+  -webkit-transform-origin: right;
+          transform-origin: right;
+  -webkit-transition: -webkit-transform 0.65s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: -webkit-transform 0.65s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: transform 0.65s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: transform 0.65s cubic-bezier(0.19, 1, 0.22, 1), -webkit-transform 0.65s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.checkout-container a:hover::after {
+  -webkit-transform: scaleX(0);
+          transform: scaleX(0);
+  -webkit-transform-origin: right;
+          transform-origin: right;
+  -webkit-transition-delay: 0s;
+          transition-delay: 0s;
+}
+
 .loading-container {
   height: calc(100vh - 350px);
   display: -webkit-box;
