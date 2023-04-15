@@ -10,7 +10,9 @@ const AccountOverview = () => {
   useEffect(() => {
     if (authState?._id) {
       axios
-        .get(`http://localhost:5000/account/order/${authState?._id}`)
+        .get(
+          `https://next-ecommerce.onrender.com/account/order/${authState?._id}`
+        )
         .then((res) => setOrderDetail(res.data))
         .catch((err) => console.log(err.message));
     }

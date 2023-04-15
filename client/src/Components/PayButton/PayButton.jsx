@@ -13,7 +13,7 @@ const PayButton = ({ cartItems, setIsLoading }) => {
     setIsLoading(true);
     axios
       .post(
-        `https://e-commerce-c8nd.onrender.com/stripe/create-checkout-session`,
+        `https://next-ecommerce.onrender.com/stripe/create-checkout-session`,
         {
           cartItems,
           userId: authState?._id,
