@@ -91,34 +91,32 @@ const AccountOverview = () => {
         <h4>Orders</h4>
         <div className="order--details">
           {window.innerWidth < 1024 ? (
-            orderDetail
-              ?.filter((_, i) => i > 2)
-              .map((order) => (
-                <div className="order-row" key={order?._id}>
-                  <p>Order #Id - {order?._id}</p>
-                  <div className="item-detail">
-                    <div className="item--img">
-                      <img src={order?.products?.[0]?.images} alt="shoe-img" />
-                    </div>
-                    <Link to={`/product/${order?.products?.[0]?.productId}`}>
-                      {order?.products?.[0]?.name}
-                    </Link>
+            orderDetail.map((order) => (
+              <div className="order-row" key={order?._id}>
+                <p>Order #Id - {order?._id}</p>
+                <div className="item-detail">
+                  <div className="item--img">
+                    <img src={order?.products?.[0]?.images} alt="shoe-img" />
                   </div>
-                  <div className="item-status">
-                    <div className="item-status--row">
-                      <p>Date: {order?.createdAt.substring(0, 10)}</p>
-                      <p>Delivery Status: {order?.delivery_status}</p>
-                    </div>
-                    <div
-                      style={{ textAlign: "right" }}
-                      className="item-status--row"
-                    >
-                      <p>Amount</p>
-                      <p>{formatINR(order?.total / 100)}</p>
-                    </div>
+                  <Link to={`/product/${order?.products?.[0]?.productId}`}>
+                    {order?.products?.[0]?.name}
+                  </Link>
+                </div>
+                <div className="item-status">
+                  <div className="item-status--row">
+                    <p>Date: {order?.createdAt.substring(0, 10)}</p>
+                    <p>Delivery Status: {order?.delivery_status}</p>
+                  </div>
+                  <div
+                    style={{ textAlign: "right" }}
+                    className="item-status--row"
+                  >
+                    <p>Amount</p>
+                    <p>{formatINR(order?.total / 100)}</p>
                   </div>
                 </div>
-              ))
+              </div>
+            ))
           ) : (
             <table>
               <thead>
@@ -130,30 +128,28 @@ const AccountOverview = () => {
                 </tr>
               </thead>
               <tbody>
-                {orderDetail
-                  ?.filter((_, i) => i > 2)
-                  .map((order) => (
-                    <tr key={order?._id}>
-                      <td>
-                        <div className="item-detail">
-                          <div className="item--img">
-                            <img
-                              src={order?.products?.[0]?.images}
-                              alt="shoe-img"
-                            />
-                          </div>
-                          <Link
-                            to={`/product/${order?.products?.[0]?.productId}`}
-                          >
-                            {order?.products?.[0]?.name}
-                          </Link>
+                {orderDetail.map((order) => (
+                  <tr key={order?._id}>
+                    <td>
+                      <div className="item-detail">
+                        <div className="item--img">
+                          <img
+                            src={order?.products?.[0]?.images}
+                            alt="shoe-img"
+                          />
                         </div>
-                      </td>
-                      <td>{order?.createdAt.substring(0, 10)}</td>
-                      <td>{order?.delivery_status}</td>
-                      <td>{formatINR(order?.total / 100)}</td>
-                    </tr>
-                  ))}
+                        <Link
+                          to={`/product/${order?.products?.[0]?.productId}`}
+                        >
+                          {order?.products?.[0]?.name}
+                        </Link>
+                      </div>
+                    </td>
+                    <td>{order?.createdAt.substring(0, 10)}</td>
+                    <td>{order?.delivery_status}</td>
+                    <td>{formatINR(order?.total / 100)}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           )}
