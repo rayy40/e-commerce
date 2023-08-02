@@ -21,7 +21,7 @@ app.use("/account/order", order);
 const port = process.env.PORT || 5000;
 const uri = process.env.DB_URI;
 
-if ((process.env.NODE_ENV = "production")) {
+if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
