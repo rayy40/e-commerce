@@ -59,7 +59,7 @@ export const CartProvider = (props) => {
   };
 
   const getSubtotal = () => {
-    const exchangeRate = 74.51; // current exchange rate as of April 14th, 2023
+    const exchangeRate = 82.84; // current exchange rate as of August 4th, 2023
     const subtotal = cartData.reduce((total, item) => {
       const convertedAmount = item.retailPrice * exchangeRate;
       const subTotalAmount = convertedAmount * item.quantity;

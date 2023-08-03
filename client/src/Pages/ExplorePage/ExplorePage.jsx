@@ -27,6 +27,8 @@ export default function ExplorePage() {
     }
   );
 
+  console.log(data);
+
   return (
     <div className="explore-page-container">
       {isLoading ? (
