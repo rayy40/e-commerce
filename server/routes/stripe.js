@@ -27,7 +27,7 @@ router.post("/create-checkout-session", async (req, res) => {
     color: item.colorway,
     quantity: item.quantity,
     images: item.media.imageUrl,
-    retailPrice: convertUSDToINR(item.retailPrice),
+    retailPrice: Math.round(convertUSDToINR(item?.retailPrice) * 100),
   }));
 
   const cart = new Cart({
@@ -56,7 +56,7 @@ router.post("/create-checkout-session", async (req, res) => {
             id: item?.id,
           },
         },
-        unit_amount: convertUSDToINR(item?.retailPrice) * 100,
+        unit_amount: Math.round(convertUSDToINR(item?.retailPrice) * 100),
       },
       quantity: item?.quantity,
     };
