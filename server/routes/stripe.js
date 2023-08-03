@@ -17,7 +17,7 @@ const convertUSDToINR = (amount) => {
     maximumFractionDigits: 2,
   });
   const amountWithoutComma = formattedAmount.replace(/,/g, "");
-  return amountWithoutComma;
+  return 240;
 };
 
 router.post("/create-checkout-session", async (req, res) => {
