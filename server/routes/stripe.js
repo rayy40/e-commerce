@@ -10,14 +10,14 @@ const stripe = Stripe(process.env.STRIPE_KEY);
 const router = express.Router();
 
 const convertUSDToINR = (amount) => {
-  const exchangeRate = 74.51; // current exchange rate as of April 14th, 2023
+  const exchangeRate = 82.84; // current exchange rate as of August 4th, 2023
   const convertedAmount = amount * exchangeRate;
-  const formattedAmount = convertedAmount.toLocaleString("en-IN", {
+/*  const formattedAmount = convertedAmount.toLocaleString("en-IN", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
-  const amountWithoutComma = formattedAmount.replace(/,/g, "");
-  return amountWithoutComma;
+  const amountWithoutComma = formattedAmount.replace(/,/g, "");*/
+  return convertedAmount;
 };
 
 router.post("/create-checkout-session", async (req, res) => {
@@ -27,7 +27,7 @@ router.post("/create-checkout-session", async (req, res) => {
     color: item.colorway,
     quantity: item.quantity,
     images: item.media.imageUrl,
-    retailPrice: convertUSDToINR(item.retailPrice),
+    retailPrice: Math.round(convertUSDToINR(item?.retailPrice) * 100),
   }));
 
   const cart = new Cart({
@@ -56,7 +56,7 @@ router.post("/create-checkout-session", async (req, res) => {
             id: item?.id,
           },
         },
-        unit_amount: convertUSDToINR(item?.retailPrice) * 100,
+        unit_amount: Math.round(convertUSDToINR(item?.retailPrice) * 100),
       },
       quantity: item?.quantity,
     };
