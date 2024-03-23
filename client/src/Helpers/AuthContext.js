@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       const response = await axios.post(
-        `https://next-ecommerce.onrender.com/account/register`,
+        `${process.env.REACT_APP_BACKEND_URL}/account/register`,
         {
           firstName: values.firstName,
           lastName: values.lastName,
@@ -92,7 +92,7 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       const token = await axios.post(
-        `https://next-ecommerce.onrender.com/account/login`,
+        `${process.env.REACT_APP_BACKEND_URL}/account/login`,
         {
           email: values.email,
           password: values.password,
@@ -134,7 +134,7 @@ export const AuthProvider = ({ children }) => {
   const getUser = async (id) => {
     try {
       const token = await axios.get(
-        `https://next-ecommerce.onrender.com/user/${id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/user/${id}`,
         setHeaders()
       );
 

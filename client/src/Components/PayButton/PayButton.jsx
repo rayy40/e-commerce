@@ -9,13 +9,11 @@ const PayButton = ({ cartItems, setIsLoading }) => {
   const { authState } = useContext(AuthContext);
   const { setCartData } = useContext(CartContext);
 
-  console.log(cartItems);
-
   const handleCheckout = () => {
     setIsLoading(true);
     axios
       .post(
-        `https://next-ecommerce.onrender.com/stripe/create-checkout-session`,
+        `${process.env.REACT_APP_BACKEND_URL}/stripe/create-checkout-session`,
         {
           cartItems,
           userId: authState?._id,
