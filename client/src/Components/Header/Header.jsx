@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory, Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBars,
@@ -37,8 +37,7 @@ export default function Header() {
   } = useContext(OverlayContext);
   const history = useHistory();
   const [isNavBarActive, setIsNavBarActive] = useState(false);
-
-  console.log(authState);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -54,8 +53,6 @@ export default function Header() {
       window.removeEventListener("scroll", () => console.log("Remove Scroll"));
     };
   }, []);
-
-  console.log(isAccountBoxVisible);
 
   const handleLogout = async (e) => {
     try {
@@ -130,10 +127,20 @@ export default function Header() {
             <img src={logo} alt="logo" className="logo" />
           </li>
           <li>
-            <Link to="/category/men">Men</Link>
+            <Link
+              className={pathname === "/category/men" ? "selected-link" : ""}
+              to="/category/men"
+            >
+              Men
+            </Link>
           </li>
           <li>
-            <Link to="/category/women">Women</Link>
+            <Link
+              className={pathname === "/category/women" ? "selected-link" : ""}
+              to="/category/women"
+            >
+              Women
+            </Link>
           </li>
         </ul>
         <ul className="desktop--nav-bar">

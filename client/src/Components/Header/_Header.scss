@@ -37,6 +37,7 @@
       .header-items--right,
       a:-webkit-any-link {
         position: relative;
+        text-transform: capitalize;
         text-decoration: none;
         color: #000;
         font-weight: 500;
@@ -332,6 +333,12 @@
         }
       }
     }
+  }
+}
+
+.selected-link {
+  &:after {
+    transform: scaleX(1) !important;
   }
 }
 
