@@ -42,7 +42,7 @@ export default function FilterPage() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const { data, isLoading } = useQuery(
+  const { isLoading } = useQuery(
     "shoeDataByCategory",
     ({ pageParam = 1 }) =>
       axios({
