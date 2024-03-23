@@ -17,6 +17,7 @@ import FilterPageSkeleton from "../../Components/SkeletonLoading/FilterPageSkele
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { convertUSDToINR } from "../../Helpers/utils";
+import MenPlaceholder from "../../Assets/men-placeholder";
 
 export default function FilterPage() {
   let sliderRef = useRef(null);
@@ -124,9 +125,6 @@ export default function FilterPage() {
     });
 
     setShoesSortedByColors(shoesWithNearestColors);
-
-    console.log(palette);
-    console.log(shoesWithNearestColors);
   }, [shoeData]);
 
   const filterShoesByBrand = (brand) => {
@@ -137,8 +135,6 @@ export default function FilterPage() {
     setFilteredArray(filtered);
   };
 
-  console.log(colorPalette);
-
   const filterShoesByColor = (color) => {
     let temp = shoesSortedByColors;
     let tempFiltered = temp?.filter((shoe) =>
@@ -146,10 +142,6 @@ export default function FilterPage() {
     );
     setFilteredArray(tempFiltered);
   };
-
-  console.log(filteredArray);
-
-  console.log(data);
 
   return (
     <div className="filter-page-container">
@@ -173,10 +165,15 @@ export default function FilterPage() {
               <Link to={`/product/${item?.id}`}>
                 <div key={item.id} className="list-item">
                   <div className="list-item--img">
-                    <img
-                      src={item.media.smallImageUrl}
-                      alt={item.shoe + "-img"}
-                    />
+                    {item.media.smallImageUrl ? (
+                      <img
+                        style={{ aspectRatio: "1/1" }}
+                        src={item.media.smallImageUrl}
+                        alt={item.shoe + "-img"}
+                      />
+                    ) : (
+                      <MenPlaceholder />
+                    )}
                   </div>
                   <div className="list-item--content">
                     <p>{item.name}</p>

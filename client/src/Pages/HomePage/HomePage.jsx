@@ -15,6 +15,7 @@ import WomenCollections from "../../Assets/women-category.jpg";
 import CarouselSkeleton from "../../Components/SkeletonLoading/CarouselSkeleton";
 import { Link } from "react-router-dom";
 import { convertUSDToINR } from "../../Helpers/utils";
+import Placeholder from "../../Assets/slider-placeholder";
 
 export default function HomePage() {
   const sliderRef = useRef(null);
@@ -111,7 +112,15 @@ export default function HomePage() {
                     className="home-container__top-models__body-item"
                   >
                     <div className="body-item--img">
-                      <img src={item.media.imageUrl} alt={item.shoe + "-img"} />
+                      {item.media.imageUrl ? (
+                        <img
+                          style={{ aspectRatio: "1/0.7" }}
+                          src={item.media.imageUrl}
+                          alt={item.shoe + "-img"}
+                        />
+                      ) : (
+                        <Placeholder />
+                      )}
                     </div>
                     <div className="body-item--content">
                       <p>{item.name}</p>

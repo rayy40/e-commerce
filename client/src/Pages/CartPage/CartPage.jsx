@@ -11,6 +11,7 @@ import useComponentVisible from "../../Helpers/useClickedOutside";
 import { Link } from "react-router-dom";
 import PayButton from "../../Components/PayButton/PayButton";
 import { convertUSDToINR } from "../../Helpers/utils";
+import CartPlaceholder from "../../Assets/cart-placeholder";
 
 const CartPage = () => {
   const history = useHistory();
@@ -68,10 +69,14 @@ const CartPage = () => {
                       <Link to={`/product/${item?.id}`}>
                         <div className="product--detail">
                           <div className="product--img">
-                            <img
-                              src={item?.media?.thumbUrl}
-                              alt={`${item?.shoe}-img`}
-                            />
+                            {item?.media?.thumbUrl ? (
+                              <img
+                                src={item?.media?.thumbUrl}
+                                alt={`${item?.shoe}-img`}
+                              />
+                            ) : (
+                              <CartPlaceholder />
+                            )}
                           </div>
                           <p>{item?.title}</p>
                         </div>

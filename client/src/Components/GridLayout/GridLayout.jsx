@@ -1,9 +1,14 @@
 import React, { useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router";
 import { convertUSDToINR } from "../../Helpers/utils";
+import MenPlaceholder from "../../Assets/men-placeholder";
+import WomenPlaceholder from "../../Assets/women-placeholder";
 
 const GridLayout = ({ page, isLoading, hasNextPage, fetchNextPage }) => {
   const observer = useRef();
+  const { gender } = useParams();
+
   const lastElementRef = useCallback(
     (node) => {
       if (isLoading) return;
@@ -31,7 +36,16 @@ const GridLayout = ({ page, isLoading, hasNextPage, fetchNextPage }) => {
           <Link to={`/product/${item?.id}`}>
             <div className="grid-layout-item-container">
               <div className="grid-item--img">
-                <img src={item.media.smallImageUrl} alt={item.shoe + "-img"} />
+                {item.media.smallImageUrl ? (
+                  <img
+                    src={item.media.smallImageUrl}
+                    alt={item.shoe + "-img"}
+                  />
+                ) : gender === "women" ? (
+                  <WomenPlaceholder />
+                ) : (
+                  <MenPlaceholder />
+                )}
               </div>
               <div className="grid-item--content">
                 <p>{item.name}</p>

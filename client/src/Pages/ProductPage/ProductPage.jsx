@@ -21,6 +21,7 @@ import ProductPageSkeleton from "../../Components/SkeletonLoading/ProductPageSke
 import CarouselSkeleton from "../../Components/SkeletonLoading/CarouselSkeleton";
 import { Link } from "react-router-dom";
 import { convertUSDToINR } from "../../Helpers/utils";
+import Placeholder from "../../Assets/slider-placeholder";
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -88,10 +89,15 @@ const ProductPage = () => {
         <div className="product-page-container">
           <div className="product-page-container__product">
             <div className="product-container">
-              <img
-                src={data?.results?.[0]?.media?.imageUrl}
-                alt={`${data?.results?.[0]?.name}-img`}
-              />
+              {data?.results?.[0]?.media?.imageUrl ? (
+                <img
+                  style={{ aspectRatio: "1/0.7" }}
+                  src={data?.results?.[0]?.media?.imageUrl}
+                  alt={`${data?.results?.[0]?.name}-img`}
+                />
+              ) : (
+                <Placeholder />
+              )}
             </div>
           </div>
           <div
@@ -176,10 +182,15 @@ const ProductPage = () => {
                           <Link to={`/product/${item?.id}`}>
                             <div className="similar-items-container__body-item">
                               <div className="body-item--img">
-                                <img
-                                  src={item.media.imageUrl}
-                                  alt={item.shoe + "-img"}
-                                />
+                                {item.media.imageUrl ? (
+                                  <img
+                                    style={{ aspectRatio: "1/0.7" }}
+                                    src={item.media.imageUrl}
+                                    alt={item.shoe + "-img"}
+                                  />
+                                ) : (
+                                  <Placeholder />
+                                )}
                               </div>
                               <div className="body-item--content">
                                 <p>{item.name}</p>
@@ -289,10 +300,15 @@ const ProductPage = () => {
                       className="similar-items-container__body-item"
                     >
                       <div className="body-item--img">
-                        <img
-                          src={item.media.imageUrl}
-                          alt={item.shoe + "-img"}
-                        />
+                        {item.media.imageUrl ? (
+                          <img
+                            style={{ aspectRatio: "1/0.7" }}
+                            src={item.media.imageUrl}
+                            alt={item.shoe + "-img"}
+                          />
+                        ) : (
+                          <Placeholder />
+                        )}
                       </div>
                       <div className="body-item--content">
                         <p>{item.name}</p>
