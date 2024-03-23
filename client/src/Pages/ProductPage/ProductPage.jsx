@@ -281,7 +281,7 @@ const ProductPage = () => {
                 {Array(isMobileScreen ? 1 : isTabletScreen ? 2 : 3)
                   .fill()
                   .map((_, index) => (
-                    <CarouselSkeleton key={index} />
+                    <CarouselSkeleton key={index + Math.random()} />
                   ))}
               </div>
             ) : (

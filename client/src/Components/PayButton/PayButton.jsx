@@ -9,6 +9,8 @@ const PayButton = ({ cartItems, setIsLoading }) => {
   const { authState } = useContext(AuthContext);
   const { setCartData } = useContext(CartContext);
 
+  console.log(authState);
+
   const handleCheckout = () => {
     setIsLoading(true);
     axios
