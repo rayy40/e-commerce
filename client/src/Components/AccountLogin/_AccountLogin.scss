@@ -36,8 +36,10 @@
       border-top: 1px solid #e4e4e4;
     }
     .login-btn {
+      position: relative;
       margin-top: 2.5em;
-      padding: 1.25em 4.5em;
+      padding: 1.25em;
+      min-width: 200px;
       border: none transparent;
       outline: none;
       background-color: #000;

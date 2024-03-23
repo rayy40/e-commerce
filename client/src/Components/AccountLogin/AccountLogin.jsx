@@ -1,20 +1,31 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../../Helpers/AuthContext";
 import { useHistory } from "react-router";
 
 const AccountLogin = () => {
-  const { login, authState, user, setUser, loading } = useContext(AuthContext);
   const history = useHistory();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { login, authState, user, setUser, loading, setAuthState } =
+    useContext(AuthContext);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setAuthState({
+      ...authState,
+      loginStatus: "",
+      loginError: "",
+    });
     try {
+      setIsSubmitting(true);
       await login(user);
       history.push("/");
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
-  console.log(loading);
+
   return (
     <div>
       <div className="form-header">
@@ -25,7 +36,9 @@ const AccountLogin = () => {
           style={{ padding: "2.5em 0 2em", fontSize: "0.925rem" }}
           className="error"
         >
-          <p>Incorrect email or password.</p>
+          <p style={{ color: "rgb(235, 87, 87)", fontSize: "1rem" }}>
+            Incorrect email or password.
+          </p>
         </div>
       )}
       {loading ? (
@@ -70,7 +83,6 @@ const AccountLogin = () => {
                 onChange={(e) => setUser({ ...user, password: e.target.value })}
                 className="login__form-input"
                 id="password"
-                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                 name="password"
                 required=""
                 size="30"
@@ -78,8 +90,24 @@ const AccountLogin = () => {
               />
             </div>
             <div className="login__form-container">
-              <button className="login-btn" type="submit">
-                Sign in
+              <button
+                disabled={isSubmitting}
+                style={{ opacity: isSubmitting ? 0.8 : 1 }}
+                type="submit"
+                className="login-btn"
+              >
+                {isSubmitting ? (
+                  <div className="loading-container spinner-container">
+                    <div className="lds-ring">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
+                  </div>
+                ) : (
+                  <span>Sign In</span>
+                )}
               </button>
             </div>
           </form>
