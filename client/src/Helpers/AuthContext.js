@@ -79,6 +79,7 @@ export const AuthProvider = ({ children }) => {
       return response.data;
     } catch (error) {
       console.log(error.response.data);
+      setLoading(false);
       setAuthState({
         ...authState,
         registerStatus: "error",
@@ -121,6 +122,7 @@ export const AuthProvider = ({ children }) => {
 
       return token.data;
     } catch (error) {
+      setLoading(false);
       console.log(error.response.data);
       setAuthState({
         ...authState,
@@ -177,6 +179,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         authState,
         registerUser,
+        setAuthState,
         getUser,
         login,
         logout,
