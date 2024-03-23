@@ -220,6 +220,7 @@
 .header-container__main-menu ul .header-items--right,
 .header-container__main-menu ul a:-webkit-any-link {
   position: relative;
+  text-transform: capitalize;
   text-decoration: none;
   color: #000;
   font-weight: 500;
@@ -499,6 +500,10 @@
   transform: scaleX(1);
   transform-origin: left;
   transition-delay: 0s;
+}
+
+.selected-link:after {
+  transform: scaleX(1) !important;
 }
 
 .header-overlay__size-guide--active {
@@ -3191,8 +3196,10 @@ td {
   margin-left: 5px;
 }
 .form .register__form-row .create-account-btn {
+  position: relative;
   margin-top: 2.5em;
-  padding: 1.25em 4.5em;
+  padding: 1.25em;
+  min-width: 200px;
   border: none transparent;
   outline: none;
   background-color: #000;
@@ -3279,8 +3286,10 @@ td {
   border-top: 1px solid #e4e4e4;
 }
 .login__form .login__form-container .login-btn {
+  position: relative;
   margin-top: 2.5em;
-  padding: 1.25em 4.5em;
+  padding: 1.25em;
+  min-width: 200px;
   border: none transparent;
   outline: none;
   background-color: #000;
@@ -3468,6 +3477,40 @@ td {
   animation-delay: -0.3s;
 }
 .loading-container .lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner-container {
+  margin-top: -8.5px;
+  height: 27.5px;
+}
+.spinner-container .lds-ring {
+  width: 50px;
+  height: 50px;
+}
+.spinner-container .lds-ring div {
+  width: 30px;
+  height: 30px;
+  margin: 3px;
+  border: 3px solid #888;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #888 transparent transparent transparent;
+}
+.spinner-container .lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.spinner-container .lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.spinner-container .lds-ring div:nth-child(3) {
   animation-delay: -0.15s;
 }
 @keyframes lds-ring {
