@@ -8,9 +8,15 @@ export default function FilterPageSkeleton() {
       {Array(20)
         .fill()
         .map((_, index) => (
-          <div key={index} className="list-item">
-            <div className="list-item--img">
-              <Skeleton width={"100%"} height={"300px"} />
+          <div
+            style={{
+              width: window.innerWidth < 767 ? "100%" : "calc(50% - 1em)",
+            }}
+            key={index}
+            className="list-item"
+          >
+            <div style={{ aspectRatio: "1/1" }} className="list-item--img">
+              <Skeleton width={"100%"} height={"100%"} />
             </div>
             <div className="list-item--content">
               <p>
