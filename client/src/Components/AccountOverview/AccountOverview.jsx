@@ -11,7 +11,7 @@ const AccountOverview = () => {
     if (authState?._id) {
       axios
         .get(
-          `https://next-ecommerce.onrender.com/account/order/${authState?._id}`
+          `${process.env.REACT_APP_BACKEND_URL}/account/order/${authState?._id}`
         )
         .then((res) => setOrderDetail(res.data))
         .catch((err) => console.log(err.message));
