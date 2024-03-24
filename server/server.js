@@ -19,6 +19,18 @@ app.use(
 );
 app.use(express.json());
 
+mongoose
+  .connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("MongoDB connection successfull..."))
+  .catch((err) => console.log("MongoDB connection failed", err.message));
+
+app.get("/", (req, res) => {
+  res.json("HELLO");
+});
+
 app.use("/account/register", register);
 app.use("/account/login", login);
 app.use("/stripe", stripe);
@@ -31,16 +43,4 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-app.get("/", (req, res) => {
-  res.json("HELLO");
-});
-
 app.listen(port, console.log(`Server running on port ${port}`));
-
-mongoose
-  .connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("MongoDB connection successfull..."))
-  .catch((err) => console.log("MongoDB connection failed", err.message));

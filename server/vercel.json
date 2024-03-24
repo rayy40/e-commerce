@@ -6,6 +6,9 @@
       "use": "@vercel/node"
     }
   ],
+  "routes": [
+    { "src": "/account/login", "methods": ["POST"], "dest": "/routes/login.js" }
+  ],
   "rewrites": [{ "source": "/(.*)", "destination": "/" }],
   "headers": [
     {
