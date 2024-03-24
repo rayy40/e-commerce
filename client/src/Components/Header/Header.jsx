@@ -57,6 +57,7 @@ export default function Header() {
   const handleLogout = async (e) => {
     try {
       await logout(user);
+      window.location.reload(false);
     } catch (error) {
       console.log(error);
     }
