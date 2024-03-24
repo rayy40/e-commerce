@@ -13,7 +13,7 @@
       "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
     },
     {
-      "source": "/https://next-sneakers.vercel.app/(.*)",
+      "source": "https://next-sneakers.vercel.app/(.*)",
       "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
     }
   ]
