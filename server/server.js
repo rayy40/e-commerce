@@ -10,7 +10,6 @@ const app = express();
 
 require("dotenv").config();
 
-app.use(express.json());
 app.use(
   cors({
     origin: ["https://next-sneakers.vercel.app"],
@@ -18,6 +17,7 @@ app.use(
     credentials: true,
   })
 );
+app.use(express.json());
 
 app.use("/account/register", register);
 app.use("/account/login", login);
@@ -30,6 +30,10 @@ const uri = process.env.DB_URI;
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
+
+app.get("/", (req, res) => {
+  res.json("HELLO");
+});
 
 app.listen(port, console.log(`Server running on port ${port}`));
 
