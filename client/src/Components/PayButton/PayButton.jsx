@@ -3,11 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { AuthContext } from "../../Helpers/AuthContext";
-import { CartContext } from "../../Helpers/CartContext";
 
 const PayButton = ({ cartItems, setIsLoading }) => {
   const { authState } = useContext(AuthContext);
-  const { setCartData } = useContext(CartContext);
 
   console.log(authState);
 
@@ -24,7 +22,6 @@ const PayButton = ({ cartItems, setIsLoading }) => {
       .then((res) => {
         setIsLoading(false);
         if (res.data.url) {
-          setCartData([]);
           window.location.href = res.data.url;
         }
       })
