@@ -9,11 +9,11 @@
   "rewrites": [{ "src": "/(.*)", "destination": "/" }],
   "headers": [
     {
-      "src": "/(.*)",
+      "source": "/(.*)",
       "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
     },
     {
-      "src": "/vercel_app_domain_name/(.*)",
+      "source": "/vercel_app_domain_name/(.*)",
       "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
     }
   ]
