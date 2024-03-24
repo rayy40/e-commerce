@@ -7,8 +7,6 @@ import { AuthContext } from "../../Helpers/AuthContext";
 const PayButton = ({ cartItems, setIsLoading }) => {
   const { authState } = useContext(AuthContext);
 
-  console.log(authState);
-
   const handleCheckout = () => {
     setIsLoading(true);
     axios
@@ -20,7 +18,6 @@ const PayButton = ({ cartItems, setIsLoading }) => {
         }
       )
       .then((res) => {
-        setIsLoading(false);
         if (res.data.url) {
           window.location.href = res.data.url;
         }
