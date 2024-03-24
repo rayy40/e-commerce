@@ -2,18 +2,18 @@
   "version": 2,
   "builds": [
     {
-      "src": "./server.js",
+      "src": "*.js",
       "use": "@vercel/node"
     }
   ],
-  "rewrites": [{ "src": "/(.*)", "destination": "/" }],
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
     },
     {
-      "source": "/vercel_app_domain_name/(.*)",
+      "source": "/https://next-sneakers.vercel.app/(.*)",
       "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
     }
   ]
