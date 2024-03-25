@@ -55,7 +55,7 @@ const CartPage = () => {
               <thead>
                 <tr>
                   <td>Product</td>
-                  <td>Brand</td>
+                  <td>Size</td>
                   <td>Color</td>
                   <td>QTY</td>
                   <td></td>
@@ -83,7 +83,7 @@ const CartPage = () => {
                           </div>
                         </Link>
                       </td>
-                      <td>{item?.brand}</td>
+                      <td>{item?.size}</td>
                       <td>{item?.colorway}</td>
                       <td>
                         <div className="quantity-container">
@@ -156,7 +156,7 @@ const CartPage = () => {
                           <p>
                             <span>{item?.quantity}x </span> {item?.title}
                           </p>
-                          <p>{item?.brand}</p>
+                          <p>{item?.size}</p>
                           <p>{item?.colorway}</p>
                         </div>
                       </div>
@@ -202,7 +202,7 @@ const CartPage = () => {
                       </div>
                       <div className="product-detail">
                         <p>{editProduct?.title}</p>
-                        <p>{editProduct?.brand}</p>
+                        <p>{editProduct?.size}</p>
                         <p>{editProduct?.colorway}</p>
                       </div>
                     </div>

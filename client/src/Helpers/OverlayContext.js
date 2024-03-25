@@ -3,6 +3,7 @@ import { createContext, useState } from "react";
 export const OverlayContext = createContext({
   isSearchBarVisible: false,
   isSizeGuideVisible: false,
+  isSelectSizeVisible: false,
   isCartVisible: false,
   isCartPulledUp: false,
   isExchangeComponentVisible: false,
@@ -14,6 +15,7 @@ export const OverlayContext = createContext({
   setIsDowndownOpen: () => {},
   setIsExchangeComponentVisible: () => {},
   setIsSizeGuideVisible: () => {},
+  setIsSelectSizeVisible: () => {},
   setIsEditProductSeleted: () => {},
   setIsCartVisible: () => {},
   setIsCartPulledUp: () => {},
@@ -24,6 +26,7 @@ export const OverlayProvider = (props) => {
   const [isCartVisible, setIsCartVisible] = useState(false);
   const [isCartPulledUp, setIsCartPulledUp] = useState(false);
   const [isSizeGuideVisible, setIsSizeGuideVisible] = useState(false);
+  const [isSelectSizeVisible, setIsSelectSizeVisible] = useState(false);
   const [isExchangeComponentVisible, setIsExchangeComponentVisible] =
     useState(false);
   const [isDropdownOpen, setIsDowndownOpen] = useState(false);
@@ -35,6 +38,7 @@ export const OverlayProvider = (props) => {
       value={{
         isSearchBarVisible,
         isSizeGuideVisible,
+        isSelectSizeVisible,
         isCartVisible,
         isCartPulledUp,
         isAccountBoxVisible,
@@ -46,6 +50,7 @@ export const OverlayProvider = (props) => {
         setIsCartPulledUp,
         setIsCartVisible,
         setIsSizeGuideVisible,
+        setIsSelectSizeVisible,
         setIsSearchBarVisible,
         isDropdownOpen,
         setIsDowndownOpen,

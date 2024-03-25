@@ -26,6 +26,7 @@ export default function Header() {
     isSearchBarVisible,
     isCartVisible,
     isSizeGuideVisible,
+    isSelectSizeVisible,
     isExchangeComponentVisible,
     isEditProductSelected,
     setIsCartVisible,
@@ -72,6 +73,7 @@ export default function Header() {
           isCartPulledUp ||
           isEditProductSelected ||
           isAccountBoxVisible ||
+          isSelectSizeVisible ||
           isExchangeComponentVisible) &&
         "overlay-container"
       }`}
@@ -348,8 +350,6 @@ export default function Header() {
               <thead>
                 <tr>
                   <th>EU</th>
-                  <th>36</th>
-                  <th>37</th>
                   <th>38</th>
                   <th>39</th>
                   <th>40</th>
@@ -365,8 +365,6 @@ export default function Header() {
               <tbody>
                 <tr>
                   <td style={{ paddingLeft: 0, textAlign: "left" }}>US M</td>
-                  <td>3</td>
-                  <td>4</td>
                   <td>5</td>
                   <td>6</td>
                   <td>7</td>
@@ -380,8 +378,6 @@ export default function Header() {
                 </tr>
                 <tr>
                   <td style={{ paddingLeft: 0, textAlign: "left" }}>UK M</td>
-                  <td>2</td>
-                  <td>3</td>
                   <td>4</td>
                   <td>5</td>
                   <td>6</td>
@@ -395,8 +391,6 @@ export default function Header() {
                 </tr>
                 <tr>
                   <td style={{ paddingLeft: 0, textAlign: "left" }}>CM</td>
-                  <td>23,8</td>
-                  <td>24,4</td>
                   <td>25,1</td>
                   <td>25,7</td>
                   <td>26,4</td>

@@ -13,6 +13,7 @@ import {
   faMultiply,
   faChevronLeft,
   faChevronRight,
+  faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { OverlayContext } from "../../Helpers/OverlayContext";
 import useComponentVisible from "../../Helpers/useClickedOutside";
@@ -25,17 +26,20 @@ import Placeholder from "../../Assets/slider-placeholder";
 
 const ProductPage = () => {
   const { id } = useParams();
-  const { exchangeRef } = useComponentVisible(false);
+  const { exchangeRef, selectSizeRef } = useComponentVisible(false);
   let sliderRef = useRef(null);
   const { addToCart } = useContext(CartContext);
   const {
     isExchangeComponentVisible,
+    isSelectSizeVisible,
     setIsSizeGuideVisible,
+    setIsSelectSizeVisible,
     setIsCartVisible,
     setIsExchangeComponentVisible,
     setIsCartPulledUp,
     isCartPulledUp,
   } = useContext(OverlayContext);
+  const [size, setSize] = useState("-");
   const [sliderIndex, setSliderIndex] = useState(0);
   const [isTabletScreen, setIsTabletScreen] = useState(false);
   const [isMobileScreen, setIsMobileScreen] = useState(false);
@@ -117,12 +121,25 @@ const ProductPage = () => {
               </div>
               <button
                 onClick={() => {
-                  addToCart(data?.results?.[0]);
+                  setIsSelectSizeVisible(true);
+                  setIsCartPulledUp(false);
+                }}
+                className="select-size"
+              >
+                {size?.length > 2 ? size : "Select size"}
+                <FontAwesomeIcon className="icon" icon={faCaretDown} />
+              </button>
+              <button
+                disabled={size.length > 2 ? false : true}
+                onClick={() => {
+                  addToCart({ ...data?.results?.[0], size: size });
                   setIsCartVisible(true);
                 }}
-                className="add-to-bag"
+                className={`add-to-bag ${
+                  size.length < 2 && "add-to-bag--disabled"
+                }`}
               >
-                Add to bag{" "}
+                Add to bag&nbsp;
                 <FontAwesomeIcon className="icon" icon={faArrowRightLong} />
               </button>
               <span
@@ -163,7 +180,32 @@ const ProductPage = () => {
                   ></path>
                 </svg>
                 <div className="content">
-                  <h4>Easy returns</h4>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <h4>Easy returns</h4>
+                    <svg
+                      width="13"
+                      height="14"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M3.16677 10.2383V.979248h9.25903V10.2383H3.16677Zm1.38885-7.8702h6.48128v6.4813H4.55562V2.3681Z"
+                        fill="#000"
+                      ></path>
+                      <path
+                        d="M.425781 6.118H1.81463v5.5138h5.648v1.3888H.425781V6.118Z"
+                        fill="#000"
+                      ></path>
+                    </svg>
+                  </div>
                   <p>
                     Exchange or return your product(s) within 14 days of
                     receiving your order.
@@ -210,13 +252,144 @@ const ProductPage = () => {
             </div>
           </div>
           <div
-            ref={exchangeRef}
-            className={`return-and-exchanges__overlay ${
-              isExchangeComponentVisible &&
-              "return-and-exchanges__overlay--active"
+            ref={selectSizeRef}
+            className={`overlay-wrapper ${
+              isSelectSizeVisible && "overlay-wrapper--active"
             }`}
           >
-            <div className="return-and-exchanges__overlay__inner">
+            <div className="overlay-wrapper__inner">
+              <button onClick={() => setIsSelectSizeVisible(false)}></button>
+              <div className="select-size__header">
+                <h3>Select Size</h3>
+                <FontAwesomeIcon
+                  onClick={() => setIsSelectSizeVisible(false)}
+                  className="icon"
+                  icon={faMultiply}
+                />
+              </div>
+              <div className="select-size__body">
+                <ul>
+                  <li>
+                    <button
+                      onClick={(e) => {
+                        setSize(e.target.innerHTML);
+                        setIsSelectSizeVisible(false);
+                      }}
+                      className="size-btn"
+                    >
+                      EU 38 | US 5 | UK 4
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={(e) => {
+                        setSize(e.target.innerHTML);
+                        setIsSelectSizeVisible(false);
+                      }}
+                      className="size-btn"
+                    >
+                      EU 39 | US 6 | UK 5
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={(e) => {
+                        setSize(e.target.innerHTML);
+                        setIsSelectSizeVisible(false);
+                      }}
+                      className="size-btn"
+                    >
+                      EU 40 | US 7 | UK 6
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={(e) => {
+                        setSize(e.target.innerHTML);
+                        setIsSelectSizeVisible(false);
+                      }}
+                      className="size-btn"
+                    >
+                      EU 41 | US 8 | UK 7
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={(e) => {
+                        setSize(e.target.innerHTML);
+                        setIsSelectSizeVisible(false);
+                      }}
+                      className="size-btn"
+                    >
+                      EU 42 | US 9 | UK 8
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={(e) => {
+                        setSize(e.target.innerHTML);
+                        setIsSelectSizeVisible(false);
+                      }}
+                      className="size-btn"
+                    >
+                      EU 43 | US 10 | UK 9
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={(e) => {
+                        setSize(e.target.innerHTML);
+                        setIsSelectSizeVisible(false);
+                      }}
+                      className="size-btn"
+                    >
+                      EU 44 | US 11 | UK 10
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={(e) => {
+                        setSize(e.target.innerHTML);
+                        setIsSelectSizeVisible(false);
+                      }}
+                      className="size-btn"
+                    >
+                      EU 45 | US 12 | UK 11
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={(e) => {
+                        setSize(e.target.innerHTML);
+                        setIsSelectSizeVisible(false);
+                      }}
+                      className="size-btn"
+                    >
+                      EU 46 | US 13 | UK 12
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={(e) => {
+                        setSize(e.target.innerHTML);
+                        setIsSelectSizeVisible(false);
+                      }}
+                      className="size-btn"
+                    >
+                      EU 47 | US 14 | UK 13
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div
+            ref={exchangeRef}
+            className={`overlay-wrapper ${
+              isExchangeComponentVisible && "overlay-wrapper--active"
+            }`}
+          >
+            <div className="overlay-wrapper__inner">
               <button
                 onClick={() => setIsExchangeComponentVisible(false)}
               ></button>

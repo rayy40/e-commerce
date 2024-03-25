@@ -5,6 +5,7 @@ export default function useComponentVisible() {
   const {
     setIsCartVisible,
     setIsSearchBarVisible,
+    setIsSelectSizeVisible,
     setIsDowndownOpen,
     setIsSizeGuideVisible,
     setIsEditProductSeleted,
@@ -12,6 +13,7 @@ export default function useComponentVisible() {
     setIsAccountBoxVisible,
   } = useContext(OverlayContext);
   const cartRef = useRef(null);
+  const selectSizeRef = useRef(null);
   const sizeGuideRef = useRef(null);
   const searchBarRef = useRef(null);
   const exchangeRef = useRef(null);
@@ -26,10 +28,17 @@ export default function useComponentVisible() {
     if (sizeGuideRef.current && !sizeGuideRef.current.contains(event.target)) {
       setIsSizeGuideVisible(false);
     }
+    if (
+      selectSizeRef.current &&
+      !selectSizeRef.current.contains(event.target)
+    ) {
+      setIsSelectSizeVisible(false);
+    }
     if (searchBarRef.current && !searchBarRef.current.contains(event.target)) {
       setIsSearchBarVisible(false);
     }
     if (exchangeRef.current && !exchangeRef.current.contains(event.target)) {
+      console.log("clicked outside");
       setIsExchangeComponentVisible(false);
     }
     if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
@@ -60,7 +69,9 @@ export default function useComponentVisible() {
   return {
     cartRef,
     sizeGuideRef,
+    selectSizeRef,
     searchBarRef,
+    exchangeRef,
     dropDownRef,
     accountBoxRef,
     editProductRef,
