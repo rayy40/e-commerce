@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../../Helpers/AuthContext";
 import { useHistory } from "react-router-dom";
 import {} from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 
 const AccountRegister = () => {
   const history = useHistory();
@@ -233,7 +235,10 @@ const AccountRegister = () => {
                     </div>
                   </div>
                 ) : (
-                  <span>Create Account</span>
+                  <>
+                    Create Account
+                    <FontAwesomeIcon className="icon" icon={faArrowRightLong} />
+                  </>
                 )}
               </button>
             </div>
