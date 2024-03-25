@@ -1557,17 +1557,36 @@
   font-size: 1rem;
   padding: 0.4em 0 0.75em;
 }
-.product-page-container__detail button {
+.product-page-container__detail .select-size {
+  outline: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #eaeaea;
+  background-color: transparent;
+  color: #333;
+  padding: 1em;
+  font-weight: 600;
+  cursor: pointer;
+}
+.product-page-container__detail .add-to-bag {
+  margin-top: -1em;
   outline: none;
   border: none transparent;
   background-color: #000;
   color: whitesmoke;
   padding: 1em 2em;
-  font-weight: 500;
+  font-weight: 600;
   position: relative;
   cursor: pointer;
 }
-.product-page-container__detail button .icon {
+.product-page-container__detail .add-to-bag--disabled {
+  opacity: 0.75;
+  background-color: #333;
+  pointer-events: none;
+  cursor: none;
+}
+.product-page-container__detail .add-to-bag .icon {
   transform: scale(0);
   transform-origin: right;
   opacity: 0;
@@ -1576,7 +1595,7 @@
   position: absolute;
   transition: opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1), transform 0.5s cubic-bezier(0.19, 1, 0.22, 1) 0.2s;
 }
-.product-page-container__detail button:hover .icon {
+.product-page-container__detail .add-to-bag:hover .icon {
   transform-origin: left;
   transform: scale(1);
   opacity: 1;
@@ -1634,7 +1653,7 @@
 .product-page-container__detail .return-and-exchanges {
   cursor: pointer;
 }
-.product-page-container .return-and-exchanges__overlay {
+.product-page-container .overlay-wrapper {
   position: fixed;
   z-index: 9999;
   padding: 2em 0;
@@ -1646,7 +1665,7 @@
   visibility: hidden;
   transition: visibility 0s 0.4s;
 }
-.product-page-container .return-and-exchanges__overlay:after {
+.product-page-container .overlay-wrapper:after {
   content: " ";
   position: absolute;
   top: 0em;
@@ -1662,27 +1681,30 @@
   transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1) 0.1s, opacity 0s 0.4s;
   box-shadow: 0 0 12px -2px rgba(0, 0, 0, 0.4);
 }
-.product-page-container .return-and-exchanges__overlay__inner {
+.product-page-container .overlay-wrapper__inner {
   opacity: 0;
   transform: translateX(3px);
   transition: opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1), transform 0s 0.4s;
   display: flex;
   flex-direction: column;
 }
-.product-page-container .return-and-exchanges__overlay__inner button {
+.product-page-container .overlay-wrapper__inner button {
   display: none;
 }
-.product-page-container .return-and-exchanges__overlay__inner .return-and-exchanges__header {
+.product-page-container .overlay-wrapper__inner .return-and-exchanges__header,
+.product-page-container .overlay-wrapper__inner .select-size__header {
   width: 100%;
   text-align: center;
   padding: 0 0 2em;
   border-bottom: 1px solid #e4e4e4;
   position: relative;
 }
-.product-page-container .return-and-exchanges__overlay__inner .return-and-exchanges__header h3 {
+.product-page-container .overlay-wrapper__inner .return-and-exchanges__header h3,
+.product-page-container .overlay-wrapper__inner .select-size__header h3 {
   font-weight: 500;
 }
-.product-page-container .return-and-exchanges__overlay__inner .return-and-exchanges__header .icon {
+.product-page-container .overlay-wrapper__inner .return-and-exchanges__header .icon,
+.product-page-container .overlay-wrapper__inner .select-size__header .icon {
   position: absolute;
   bottom: 50%;
   transform: translate(0, -50%);
@@ -1690,36 +1712,64 @@
   cursor: pointer;
   font-size: 1.15rem;
 }
-.product-page-container .return-and-exchanges__overlay__inner .return-and-exchanges__body {
+.product-page-container .overlay-wrapper__inner .return-and-exchanges__body {
   color: #333;
   padding: 2em 2.5em 0;
 }
-.product-page-container .return-and-exchanges__overlay__inner .return-and-exchanges__body h4 {
+.product-page-container .overlay-wrapper__inner .return-and-exchanges__body h4 {
   padding: 1.25em 0;
   font-weight: 500;
   color: #000;
 }
-.product-page-container .return-and-exchanges__overlay__inner .return-and-exchanges__body li {
+.product-page-container .overlay-wrapper__inner .return-and-exchanges__body li {
   font-size: 0.95rem;
 }
-.product-page-container .return-and-exchanges__overlay__inner .return-and-exchanges__body li:not(:last-child) {
+.product-page-container .overlay-wrapper__inner .return-and-exchanges__body li:not(:last-child) {
   padding-bottom: 0.5em;
+}
+.product-page-container .overlay-wrapper__inner .select-size__body {
+  overflow-y: auto;
+  color: #333;
+  padding: 2em 1.5em 0;
+}
+.product-page-container .overlay-wrapper__inner .select-size__body ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.product-page-container .overlay-wrapper__inner .select-size__body ul li .size-btn {
+  text-align: left;
+  outline: none transparent;
+  background: transparent;
+  border: 1px solid transparent;
+  width: 100%;
+  padding: 1em;
+  display: block;
+  color: #333;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.product-page-container .overlay-wrapper__inner .select-size__body ul li .size-btn:hover {
+  border: 1px solid #eaeaea;
+  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .product-page-container .drag-top-button {
   display: none;
 }
 
-.return-and-exchanges__overlay--active {
+.overlay-wrapper--active {
   cursor: default;
   visibility: visible !important;
   transition: visibility 0s 0s !important;
 }
-.return-and-exchanges__overlay--active:after {
+.overlay-wrapper--active:after {
   opacity: 1 !important;
   transform: scaleX(1) !important;
   transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1), opacity 0s 0s !important;
 }
-.return-and-exchanges__overlay--active .return-and-exchanges__overlay__inner {
+.overlay-wrapper--active .overlay-wrapper__inner {
   opacity: 1;
   transform: none;
   transition: opacity 1.25s cubic-bezier(0.19, 1, 0.22, 1) 0.3s, transform 2s cubic-bezier(0.19, 1, 0.22, 1) 0.3s;
@@ -2071,6 +2121,7 @@
     padding-bottom: 0.5em;
   }
   .product-page-container__detail__inner .add-to-bag {
+    margin-top: 0;
     margin-bottom: 1em;
   }
   .product-page-container__detail__inner .shipping-charges,
@@ -2082,7 +2133,7 @@
   .product-page-container__detail__inner .return-and-exchanges {
     padding: 0 0 4em;
   }
-  .product-page-container .return-and-exchanges__overlay {
+  .product-page-container .overlay-wrapper {
     z-index: 6;
     width: 100%;
     right: 0em;
@@ -2092,18 +2143,18 @@
     height: fit-content;
     transition: visibility 0s 0.5s;
   }
-  .product-page-container .return-and-exchanges__overlay::after {
+  .product-page-container .overlay-wrapper::after {
     transform-origin: bottom;
     opacity: 0;
     transform: scaleY(0);
     transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1) 0.1s, opacity 0s 0.4s;
   }
-  .product-page-container .return-and-exchanges__overlay__inner {
+  .product-page-container .overlay-wrapper__inner {
     opacity: 0;
     transform: translateY(3px);
     transition: opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1), transform 0s 0.4s;
   }
-  .product-page-container .return-and-exchanges__overlay__inner button {
+  .product-page-container .overlay-wrapper__inner button {
     display: unset;
     margin-top: -2.25em;
     border: none transparent;
@@ -2113,7 +2164,7 @@
     width: 100%;
     height: 2rem;
   }
-  .product-page-container .return-and-exchanges__overlay__inner button::after {
+  .product-page-container .overlay-wrapper__inner button::after {
     content: "";
     position: absolute;
     top: 0.5rem;
@@ -2125,34 +2176,47 @@
     background: #d5d5d5;
     transform: translate(-50%);
   }
-  .product-page-container .return-and-exchanges__overlay__inner .return-and-exchanges__header {
+  .product-page-container .overlay-wrapper__inner .return-and-exchanges__header,
+  .product-page-container .overlay-wrapper__inner .select-size__header {
     padding: 0 0 2em;
     font-size: 0.975rem;
   }
-  .product-page-container .return-and-exchanges__overlay__inner .return-and-exchanges__header h3 {
+  .product-page-container .overlay-wrapper__inner .return-and-exchanges__header h3,
+  .product-page-container .overlay-wrapper__inner .select-size__header h3 {
     font-size: 1.25rem;
     font-weight: 500;
   }
-  .product-page-container .return-and-exchanges__overlay__inner .return-and-exchanges__header .icon {
+  .product-page-container .overlay-wrapper__inner .return-and-exchanges__header .icon,
+  .product-page-container .overlay-wrapper__inner .select-size__header .icon {
     display: none;
   }
-  .product-page-container .return-and-exchanges__overlay__inner .return-and-exchanges__body {
+  .product-page-container .overlay-wrapper__inner .return-and-exchanges__body {
     color: #333;
     padding: 2em 1em 0;
   }
-  .product-page-container .return-and-exchanges__overlay__inner .return-and-exchanges__body h4 {
+  .product-page-container .overlay-wrapper__inner .return-and-exchanges__body h4 {
     font-size: 1.1rem;
     padding: 1.25em 0;
     font-weight: 500;
     color: #000;
   }
-  .product-page-container .return-and-exchanges__overlay__inner .return-and-exchanges__body li {
+  .product-page-container .overlay-wrapper__inner .return-and-exchanges__body li {
     margin: 0 1.2em;
     padding: 0 0.15em;
     font-size: 0.975rem;
   }
-  .product-page-container .return-and-exchanges__overlay__inner .return-and-exchanges__body li:not(:last-child) {
+  .product-page-container .overlay-wrapper__inner .return-and-exchanges__body li:not(:last-child) {
     padding-bottom: 0.5em;
+  }
+  .product-page-container .overlay-wrapper__inner .select-size__body {
+    padding: 2em 1em 0;
+  }
+  .product-page-container .overlay-wrapper__inner .select-size__body ul {
+    gap: 1em;
+  }
+  .product-page-container .overlay-wrapper__inner .select-size__body ul li .size-btn {
+    border: 1px solid #eaeaea;
+    padding: 1em;
   }
   .product-page-container__detail--active {
     z-index: 4;
@@ -2165,17 +2229,17 @@
     opacity: 1;
     transition: opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1);
   }
-  .return-and-exchanges__overlay--active {
+  .overlay-wrapper--active {
     cursor: default;
     visibility: visible !important;
     transition: visibility 0s 0s, transform 0.2s cubic-bezier(0.19, 1, 0.22, 1);
   }
-  .return-and-exchanges__overlay--active:after {
+  .overlay-wrapper--active:after {
     opacity: 1 !important;
     transform: scaleY(1) !important;
     transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1), opacity 0s 0s;
   }
-  .return-and-exchanges__overlay--active .return-and-exchanges__overlay__inner {
+  .overlay-wrapper--active .overlay-wrapper__inner {
     opacity: 1;
     transform: none;
     transition: opacity 1.25s cubic-bezier(0.19, 1, 0.22, 1) 0.3s, transform 2s cubic-bezier(0.19, 1, 0.22, 1) 0.3s;
