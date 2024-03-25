@@ -14,11 +14,12 @@ require("dotenv").config();
 
 app.use(
   cors({
-    origin: ["https://next-sneakers.vercel.app"],
+    origin: [process.env.CLIENT_URL],
     methods: ["POST", "GET"],
     credentials: true,
   })
 );
+app.use("/stripe/webhook", express.raw({ type: "application/json" }));
 app.use(express.json());
 
 mongoose
@@ -38,8 +39,8 @@ app.use("/account/login", login);
 app.use("/stripe", stripe);
 app.use("/account/order", order);
 
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static("client/build"));
-// }
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 
 app.listen(port, console.log(`Server running on port ${port}`));
