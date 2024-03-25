@@ -48,7 +48,11 @@ const CartPage = () => {
           Keep shopping
         </p>
       </div>
-      <div className="cart-page-container__right">
+      <div className="cart-page-container__no-items">
+        <h3>No items added to cart.</h3>
+        <Link to={"/"}>Go, add some.</Link>
+      </div>
+      {/* <div className="cart-page-container__right">
         <div className="cart-table">
           <table>
             <thead>
@@ -259,7 +263,7 @@ const CartPage = () => {
           </div>
           <PayButton setIsLoading={setIsLoading} cartItems={cartData} />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
