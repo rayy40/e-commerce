@@ -10,13 +10,8 @@ const stripe = Stripe(process.env.STRIPE_KEY);
 const router = express.Router();
 
 const convertUSDToINR = (amount) => {
-  const exchangeRate = 82.84; // current exchange rate as of August 4th, 2023
+  const exchangeRate = 83.42; // current exchange rate as of March 25th, 2024
   const convertedAmount = amount * exchangeRate;
-/*  const formattedAmount = convertedAmount.toLocaleString("en-IN", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-  const amountWithoutComma = formattedAmount.replace(/,/g, "");*/
   return convertedAmount;
 };
 
@@ -123,15 +118,11 @@ router.post("/create-checkout-session", async (req, res) => {
   res.send({ url: session.url });
 });
 
-// Create order function
-
 const createOrder = async (customer, data) => {
   const cartId = customer.metadata.cartId;
   const cart = await Cart.findById(cartId);
 
   const cartItems = cart.cartItems;
-
-  console.log(cartItems);
 
   const products = cartItems.map((item) => {
     return {
@@ -155,77 +146,53 @@ const createOrder = async (customer, data) => {
   });
 
   try {
-    const savedOrder = await newOrder.save();
-    console.log("Processed Order:", savedOrder);
-    // Update user's order history
-    // const user = await User.findById(customer.metadata.userId);
-    // if (!user) {
-    //   throw new Error("User not found");
-    // }
-
-    // user.orderHistory.push(savedOrder._id);
-    // await user.save();
-
-    // console.log("User's order history updated");
+    await newOrder.save();
   } catch (err) {
     console.log(err);
+    return res.status(400).send(err.message);
   }
 };
-
-//Stripe webhook
-
-// endpointSecret =
-//   "whsec_3f3d4384b4ea1a5b8f9217da901ccb0ac9425325b1e6c04cfbdf503b01903aec";
 
 router.post(
   "/webhook",
   express.raw({ type: "application/json" }),
   (req, res) => {
-    let data;
-    let eventType;
+    const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
-    let webhookSecret = "";
-    // "whsec_3f3d4384b4ea1a5b8f9217da901ccb0ac9425325b1e6c04cfbdf503b01903aec"; // Set this to your Stripe webhook secret key
+    let event = req.body;
 
-    if (webhookSecret) {
-      let event;
-      let signature = req.headers["stripe-signature"];
-
+    if (endpointSecret) {
+      const signature = req.headers["stripe-signature"];
       try {
-        event = stripe.webhooks.constructEvent(req.body, sig, webhookSecret);
-        console.log("Webhook Verified");
+        event = stripe.webhooks.constructEvent(
+          req.body,
+          signature,
+          endpointSecret
+        );
+        console.log("Webhook verified.");
       } catch (err) {
-        console.log("Webhook Error");
+        console.log(`Webhook not verified: ${err.message}`);
         return res.status(400).send(`Webhook Error: ${err.message}`);
       }
-      // Extract the object from the event.
-      data = event.data.object;
-      eventType = event.type;
-    } else {
-      // Webhook signing is recommended, but if the secret is not configured,
-      // retrieve the event data directly from the request body.
-      data = req.body.data.object;
-      eventType = req.body.type;
     }
 
-    // Handle the checkout.session.completed event
-    if (eventType === "checkout.session.completed") {
-      stripe.customers
-        .retrieve(data.customer)
-        .then(async (customer) => {
-          try {
-            // CREATE ORDER
-            const order = await createOrder(customer, data); // Call your createOrder function and pass in the customer and data objects
-            console.log(`Created order ${order._id}`);
-          } catch (err) {
-            console.log(err);
-          }
-        })
-        .catch((err) => console.log(err.message));
+    const data = event.data.object;
+
+    switch (event.type) {
+      case "checkout.session.completed":
+        stripe.customers
+          .retrieve(data.customer)
+          .then((customer) => {
+            createOrder(customer, data);
+          })
+          .catch((err) => console.log(err.message));
+
+        break;
+      default:
+        console.log(`Unhandled event type ${event.type}.`);
     }
 
-    // Return a 200 res to acknowledge receipt of the event
-    res.status(200).send("Webhook received").end();
+    res.send().end();
   }
 );
 
