@@ -7,6 +7,7 @@ const CheckoutSuccess = () => {
 
   useEffect(() => {
     setCartData([]);
+    localStorage.removeItem("cart");
   }, [setCartData]);
 
   return (
