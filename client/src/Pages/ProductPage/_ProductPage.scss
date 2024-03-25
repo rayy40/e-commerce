@@ -64,7 +64,8 @@
         transform: scale(0);
         transform-origin: right;
         opacity: 0;
-        margin-left: 1.5em;
+        padding-top: 0.25em;
+        padding-left: 1.5em;
         position: absolute;
         transition: opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1),
           transform 0.5s cubic-bezier(0.19, 1, 0.22, 1) 0.2s;

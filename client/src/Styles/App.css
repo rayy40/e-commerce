@@ -128,6 +128,7 @@
 }
 .shopping-cart-container__items ul li .checkout-btn-container .checkout-btn .icon, .shopping-cart-container__checkout ul li .checkout-btn-container .checkout-btn .icon {
   position: absolute;
+  padding-top: 0.25em;
   padding-left: 1.15em;
   transform: scale(0);
   transform-origin: right;
@@ -1570,7 +1571,8 @@
   transform: scale(0);
   transform-origin: right;
   opacity: 0;
-  margin-left: 1.5em;
+  padding-top: 0.25em;
+  padding-left: 1.5em;
   position: absolute;
   transition: opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1), transform 0.5s cubic-bezier(0.19, 1, 0.22, 1) 0.2s;
 }
@@ -2353,6 +2355,7 @@
 }
 .cart-page-container__right .cart-summary .checkout-btn .icon {
   position: absolute;
+  padding-top: 0.25em;
   padding-left: 1.15em;
   transform: scale(0);
   transform-origin: right;
@@ -3207,6 +3210,19 @@ td {
   max-width: 250px;
   cursor: pointer;
 }
+.form .register__form-row .create-account-btn .icon {
+  position: absolute;
+  padding-top: 0.25em;
+  padding-left: 1.15em;
+  transform: scale(0);
+  transform-origin: right;
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1) 0.2s;
+}
+.form .register__form-row .create-account-btn:hover .icon {
+  transform: scale(1);
+  transform-origin: left;
+  transition-delay: 0s;
+}
 .form .register__form-row:nth-child(5) {
   padding-bottom: 2em;
 }
@@ -3296,6 +3312,19 @@ td {
   color: #fff;
   max-width: 250px;
   cursor: pointer;
+}
+.login__form .login__form-container .login-btn .icon {
+  position: absolute;
+  padding-top: 0.25em;
+  padding-left: 1.15em;
+  transform: scale(0);
+  transform-origin: right;
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1) 0.2s;
+}
+.login__form .login__form-container .login-btn:hover .icon {
+  transform: scale(1);
+  transform-origin: left;
+  transition-delay: 0s;
 }
 
 @media only screen and (max-width: 1024px) {
