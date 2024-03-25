@@ -10,7 +10,7 @@ export default function FilterPageSkeleton() {
         .map((_, index) => (
           <div
             style={{
-              width: window.innerWidth < 767 ? "100%" : "calc(50% - 1em)",
+              width: window.innerWidth < 767 ? "100%" : "calc(50% - 2em)",
             }}
             key={index}
             className="list-item"
