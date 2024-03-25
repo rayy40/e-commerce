@@ -7,13 +7,18 @@ import { AuthContext } from "../../Helpers/AuthContext";
 const PayButton = ({ cartItems, setIsLoading }) => {
   const { authState } = useContext(AuthContext);
 
+  const modifiedCartItems = cartItems.map((item) => {
+    const { size, ...itemWithoutSize } = item;
+    return itemWithoutSize;
+  });
+
   const handleCheckout = () => {
     setIsLoading(true);
     axios
       .post(
         `${process.env.REACT_APP_BACKEND_URL}/stripe/create-checkout-session`,
         {
-          cartItems,
+          modifiedCartItems,
           userId: authState?._id,
         }
       )
