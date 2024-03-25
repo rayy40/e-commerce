@@ -51,7 +51,12 @@ const AccountOverview = () => {
     >
       <section id="personal-information" className="account-overview-container">
         <div className="account__welcome-column">
-          <h3>Welcome {authState?.firstName}</h3>
+          <h3>
+            Welcome&nbsp;
+            <span style={{ textTransform: "capitalize" }}>
+              {authState?.firstName}
+            </span>
+          </h3>
           <p>
             Here you can keep track of your recent activity, request
             return/exchange authorizations for orders you have received, and

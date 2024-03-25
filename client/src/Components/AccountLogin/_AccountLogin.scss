@@ -46,6 +46,21 @@
       color: #fff;
       max-width: 250px;
       cursor: pointer;
+      .icon {
+        position: absolute;
+        padding-top: 0.25em;
+        padding-left: 1.15em;
+        transform: scale(0);
+        transform-origin: right;
+        transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1) 0.2s;
+      }
+      &:hover {
+        .icon {
+          transform: scale(1);
+          transform-origin: left;
+          transition-delay: 0s;
+        }
+      }
     }
   }
 }
