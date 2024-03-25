@@ -98,7 +98,16 @@ export default function Header() {
               icon={isNavBarActive ? faMultiply : faBars}
             />
           </li>
-          <li onClick={() => history.push("/")} style={{ zIndex: "2" }}>
+          <li
+            onClick={() => {
+              history.push("/");
+              document
+                .querySelector(".header-overlay__nav-bar")
+                .classList.remove("header-overlay__nav-bar--active");
+              setIsNavBarActive(false);
+            }}
+            style={{ zIndex: "2" }}
+          >
             <img
               style={{ paddingTop: "0.25em" }}
               src={logo}
