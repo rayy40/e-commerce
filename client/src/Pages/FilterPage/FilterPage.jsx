@@ -202,15 +202,6 @@ export default function FilterPage() {
               </div>
               <div className="filter-size-list__body">
                 <button>
-                  <span>35</span>
-                </button>
-                <button>
-                  <span>36</span>
-                </button>
-                <button>
-                  <span>37</span>
-                </button>
-                <button>
                   <span>38</span>
                 </button>
                 <button>
