@@ -12,13 +12,7 @@ const uri = process.env.DB_URI;
 
 require("dotenv").config();
 
-app.use(
-  cors({
-    origin: [process.env.CLIENT_URL],
-    methods: ["POST", "GET"],
-    credentials: true,
-  })
-);
+app.use(cors());
 app.use("/stripe/webhook", express.raw({ type: "application/json" }));
 app.use(express.json());
 
@@ -31,13 +25,13 @@ mongoose
   .catch((err) => console.log("MongoDB connection failed", err.message));
 
 app.get("/", (req, res) => {
-  res.json("HELLO");
+  res.json("Ecommerce server");
 });
 
-app.use("/account/register", register);
-app.use("/account/login", login);
-app.use("/stripe", stripe);
-app.use("/account/order", order);
+app.use("/account/register", cors(), register);
+app.use("/account/login", cors(), login);
+app.use("/stripe", cors(), stripe);
+app.use("/account/order", cors(), order);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
