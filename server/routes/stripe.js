@@ -17,6 +17,7 @@ const convertUSDToINR = (amount) => {
 
 router.post("/create-checkout-session", async (req, res) => {
   try {
+    console.log(req.body);
     const cartItems = req.body.cartItems.map((item) => ({
       name: item.title,
       productId: item.id,
