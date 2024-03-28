@@ -12,6 +12,7 @@ const AccountPage = () => {
   const handleClick = async () => {
     try {
       await logout(user);
+      window.location.reload(false);
       history.push("/");
     } catch (error) {
       console.log(error);
