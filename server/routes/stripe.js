@@ -16,106 +16,111 @@ const convertUSDToINR = (amount) => {
 };
 
 router.post("/create-checkout-session", async (req, res) => {
-  const cartItems = req.body.cartItems.map((item) => ({
-    name: item.title,
-    productId: item.id,
-    color: item.colorway,
-    quantity: item.quantity,
-    images: item.media.imageUrl,
-    retailPrice: Math.round(convertUSDToINR(item?.retailPrice) * 100),
-  }));
+  try {
+    const cartItems = req.body.cartItems.map((item) => ({
+      name: item.title,
+      productId: item.id,
+      color: item.colorway,
+      quantity: item.quantity,
+      images: item.media.imageUrl,
+      retailPrice: Math.round(convertUSDToINR(item?.retailPrice) * 100),
+    }));
 
-  const cart = new Cart({
-    userId: req.body.userId,
-    cartItems,
-  });
-
-  await cart.save();
-
-  const customer = await stripe.customers.create({
-    metadata: {
+    const cart = new Cart({
       userId: req.body.userId,
-      cartId: cart._id.toString(),
-    },
-  });
+      cartItems,
+    });
 
-  const line_items = req.body.cartItems.map((item) => {
-    return {
-      price_data: {
-        currency: "inr",
-        product_data: {
-          name: item?.title,
-          images: [item?.media?.imageUrl],
-          description: item?.brand,
-          metadata: {
-            id: item?.id,
-          },
-        },
-        unit_amount: Math.round(convertUSDToINR(item?.retailPrice) * 100),
-      },
-      quantity: item?.quantity,
-    };
-  });
+    await cart.save();
 
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ["card"],
-    shipping_address_collection: {
-      allowed_countries: ["IN"],
-    },
-    shipping_options: [
-      {
-        shipping_rate_data: {
-          type: "fixed_amount",
-          fixed_amount: {
-            amount: 0,
-            currency: "inr",
-          },
-          display_name: "Free shipping",
-          // Delivers between 5-7 business days
-          delivery_estimate: {
-            minimum: {
-              unit: "business_day",
-              value: 5,
+    const customer = await stripe.customers.create({
+      metadata: {
+        userId: req.body.userId,
+        cartId: cart._id.toString(),
+      },
+    });
+
+    const line_items = req.body.cartItems.map((item) => {
+      return {
+        price_data: {
+          currency: "inr",
+          product_data: {
+            name: item?.title,
+            images: [item?.media?.imageUrl],
+            description: item?.brand,
+            metadata: {
+              id: item?.id,
             },
-            maximum: {
-              unit: "business_day",
-              value: 7,
+          },
+          unit_amount: Math.round(convertUSDToINR(item?.retailPrice) * 100),
+        },
+        quantity: item?.quantity,
+      };
+    });
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      shipping_address_collection: {
+        allowed_countries: ["IN"],
+      },
+      shipping_options: [
+        {
+          shipping_rate_data: {
+            type: "fixed_amount",
+            fixed_amount: {
+              amount: 0,
+              currency: "inr",
+            },
+            display_name: "Free shipping",
+            // Delivers between 5-7 business days
+            delivery_estimate: {
+              minimum: {
+                unit: "business_day",
+                value: 5,
+              },
+              maximum: {
+                unit: "business_day",
+                value: 7,
+              },
             },
           },
         },
-      },
-      {
-        shipping_rate_data: {
-          type: "fixed_amount",
-          fixed_amount: {
-            amount: 35000,
-            currency: "inr",
-          },
-          display_name: "Next day air",
-          // Delivers in exactly 1 business day
-          delivery_estimate: {
-            minimum: {
-              unit: "business_day",
-              value: 1,
+        {
+          shipping_rate_data: {
+            type: "fixed_amount",
+            fixed_amount: {
+              amount: 35000,
+              currency: "inr",
             },
-            maximum: {
-              unit: "business_day",
-              value: 1,
+            display_name: "Next day air",
+            // Delivers in exactly 1 business day
+            delivery_estimate: {
+              minimum: {
+                unit: "business_day",
+                value: 1,
+              },
+              maximum: {
+                unit: "business_day",
+                value: 1,
+              },
             },
           },
         },
+      ],
+      phone_number_collection: {
+        enabled: true,
       },
-    ],
-    phone_number_collection: {
-      enabled: true,
-    },
-    line_items,
-    mode: "payment",
-    customer: customer.id,
-    success_url: `${process.env.CLIENT_URL}/checkout-success`,
-    cancel_url: `${process.env.CLIENT_URL}/cart`,
-  });
-  res.send({ url: session.url });
+      line_items,
+      mode: "payment",
+      customer: customer.id,
+      success_url: `${process.env.CLIENT_URL}/checkout-success`,
+      cancel_url: `${process.env.CLIENT_URL}/cart`,
+    });
+    res.send({ url: session.url });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(error.message);
+  }
 });
 
 const createOrder = async (customer, data) => {
