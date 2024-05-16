@@ -219,7 +219,7 @@
   align-items: center;
 }
 .header-container__main-menu ul .header-items--right,
-.header-container__main-menu ul a:-webkit-any-link {
+.header-container__main-menu ul a {
   position: relative;
   text-transform: capitalize;
   text-decoration: none;
@@ -229,7 +229,7 @@
   cursor: pointer;
 }
 .header-container__main-menu ul .header-items--right:after,
-.header-container__main-menu ul a:-webkit-any-link:after {
+.header-container__main-menu ul a:after {
   position: absolute;
   left: 0;
   bottom: -3.5px;
@@ -241,11 +241,10 @@
   height: 1px;
   transform: scaleX(0);
   transform-origin: right;
-  -webkit-transition: transform 0.7s cubic-bezier(0.19, 1, 0.22, 1) 0.2s;
   transition: transform 0.7s cubic-bezier(0.19, 1, 0.22, 1) 0.2s;
 }
 .header-container__main-menu ul .header-items--right:hover::after,
-.header-container__main-menu ul a:-webkit-any-link:hover::after {
+.header-container__main-menu ul a:hover::after {
   transform: scaleX(1);
   transform-origin: left;
   transition-delay: 0s;
@@ -815,7 +814,7 @@
   position: relative;
   display: flex;
 }
-.nav-switch-container ul a:-webkit-any-link {
+.nav-switch-container ul a {
   font-size: 0.85rem;
   text-decoration: none;
   background-color: transparent;
@@ -825,7 +824,6 @@
   padding: 10px 20px;
   display: block;
   border-radius: 60px;
-  -webkit-transition: color 0.3s cubic-bezier(0.19, 1, 0.22, 1);
   transition: color 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .nav-switch-container ul .switch-link--active {
