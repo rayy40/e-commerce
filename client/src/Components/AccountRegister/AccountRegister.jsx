@@ -1,12 +1,11 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../Helpers/AuthContext";
-import { useHistory } from "react-router-dom";
-import {} from "@fortawesome/free-regular-svg-icons";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 
 const AccountRegister = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { registerUser, authState, user, setUser, loading } =
     useContext(AuthContext);
@@ -16,7 +15,7 @@ const AccountRegister = () => {
     try {
       setIsSubmitting(true);
       await registerUser(user);
-      history.push("/cart");
+      navigate("/");
     } catch (error) {
       console.log(error);
     } finally {

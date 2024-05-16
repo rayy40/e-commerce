@@ -1,9 +1,13 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import HomePage from "./Pages/HomePage/HomePage";
 import Header from "./Components/Header/Header";
 import ExplorePage from "./Pages/ExplorePage/ExplorePage";
 import FilterPage from "./Pages/FilterPage/FilterPage";
-import "./Styles/App.css";
 import ProductPage from "./Pages/ProductPage/ProductPage";
 import { CartProvider } from "./Helpers/CartContext";
 import { OverlayProvider } from "./Helpers/OverlayContext";
@@ -15,6 +19,7 @@ import { SearchProvider } from "./Helpers/SearchContext";
 import AccountPage from "./Pages/AccountPage/AccountPage";
 import CheckoutSuccess from "./Pages/Checkout/CheckoutSuccess";
 import CheckoutFailed from "./Pages/Checkout/CheckoutFailed";
+import "./Styles/App.css";
 
 function App() {
   return (
@@ -25,18 +30,22 @@ function App() {
             <CartProvider>
               <Header />
               <div>
-                <Switch>
-                  <Route path="/" exact component={HomePage} />
-                  <Route path="/explore-all" component={ExplorePage} />
-                  <Route path="/filter-page" component={FilterPage} />
-                  <Route path="/product/:id" component={ProductPage} />
-                  <Route path="/category/:gender" component={CategoryPage} />
-                  <Route path="/cart" component={CartPage} />
-                  <Route path="/search/:name?" component={SearchPage} />
-                  <Route path="/account" component={AccountPage} />
-                  <Route path="/checkout-success" component={CheckoutSuccess} />
-                  <Route path="/checkout-failed" component={CheckoutFailed} />
-                </Switch>
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/explore-all" element={<ExplorePage />} />
+                  <Route path="/filter-page" element={<FilterPage />} />
+                  <Route path="/product/:id" element={<ProductPage />} />
+                  <Route path="/category/:gender" element={<CategoryPage />} />
+                  <Route path="/cart" element={<CartPage />} />
+                  <Route path="/search/:name?" element={<SearchPage />} />
+                  <Route path="/account/*" element={<AccountPage />} />
+                  <Route path="/account/logout" element={<Navigate to="/" />} />
+                  <Route
+                    path="/checkout-success"
+                    element={<CheckoutSuccess />}
+                  />
+                  <Route path="/checkout-failed" element={<CheckoutFailed />} />
+                </Routes>
               </div>
             </CartProvider>
           </SearchProvider>

@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../Helpers/AuthContext";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const AccountLogin = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { login, authState, user, setUser, loading, setAuthState } =
     useContext(AuthContext);
@@ -20,7 +20,7 @@ const AccountLogin = () => {
     try {
       setIsSubmitting(true);
       await login(user);
-      history.push("/");
+      navigate("/");
     } catch (error) {
       console.log(error);
     } finally {

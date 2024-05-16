@@ -1,15 +1,18 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import App from "./App";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { Analytics } from "@vercel/analytics/react";
 
 const queryClient = new QueryClient();
+const rootElement = document.getElementById("root");
+const root = createRoot(rootElement);
 
-ReactDOM.render(
+root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
+      <Analytics />
       <App />
     </QueryClientProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );

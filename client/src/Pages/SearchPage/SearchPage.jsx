@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { useParams, useHistory } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { requestShoesByName } from "../../Api/requests";
@@ -12,7 +12,7 @@ import { SearchContext } from "../../Helpers/SearchContext";
 
 const SearchPage = () => {
   const { name } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
   const { setIsSearchBarVisible } = useContext(OverlayContext);
   const { searchTerm, setSearchTerm } = useContext(SearchContext);
 
@@ -23,11 +23,11 @@ const SearchPage = () => {
   useEffect(() => {
     if (searchTerm !== "") {
       const timeoutId = setTimeout(() => {
-        history.push(`/search/${searchTerm}`);
+        navigate(`/search/${searchTerm}`);
       }, 500);
       return () => clearTimeout(timeoutId);
     }
-  }, [searchTerm, history]);
+  }, [searchTerm, navigate]);
 
   const { data, refetch, isLoading } = useQuery(
     ["shoeDataByName", name],
@@ -60,7 +60,7 @@ const SearchPage = () => {
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       const newSearchQuery = e.target.value;
-      history.push(`/search/${newSearchQuery}`);
+      navigate(`/search/${newSearchQuery}`);
     }
   };
 

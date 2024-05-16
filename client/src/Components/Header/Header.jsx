@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useHistory, Link, useLocation } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBars,
@@ -36,7 +36,7 @@ export default function Header() {
     isCartPulledUp,
     isAccountBoxVisible,
   } = useContext(OverlayContext);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [isNavBarActive, setIsNavBarActive] = useState(false);
   const { pathname } = useLocation();
 
@@ -102,7 +102,7 @@ export default function Header() {
           </li>
           <li
             onClick={() => {
-              history.push("/");
+              navigate("/");
               document
                 .querySelector(".header-overlay__nav-bar")
                 .classList.remove("header-overlay__nav-bar--active");
@@ -135,7 +135,7 @@ export default function Header() {
           </li>
         </ul>
         <ul className="desktop--nav-bar">
-          <li onClick={() => history.push("/")}>
+          <li onClick={() => navigate("/")}>
             <img src={logo} alt="logo" className="logo" />
           </li>
           <li>
@@ -227,7 +227,7 @@ export default function Header() {
                 onClick={() => {
                   handleLogout();
                   setIsAccountBoxVisible(false);
-                  history.push("/account/login");
+                  navigate("/account/login");
                 }}
                 className="logout--link"
               >
@@ -323,7 +323,7 @@ export default function Header() {
         <div className="header-overlay-search__inner">
           <input
             onKeyDown={(e) =>
-              e.key === "Enter" && history.push(`/search/${e.target.value}`)
+              e.key === "Enter" && navigate(`/search/${e.target.value}`)
             }
             onChange={(e) => setSearchTerm(e.target.value)}
             autoFocus

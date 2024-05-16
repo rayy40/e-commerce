@@ -4,7 +4,7 @@ import {
   faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import React, { useContext, useState } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { CartContext } from "../../Helpers/CartContext";
 import { OverlayContext } from "../../Helpers/OverlayContext";
 import useComponentVisible from "../../Helpers/useClickedOutside";
@@ -14,7 +14,7 @@ import { convertUSDToINR } from "../../Helpers/utils";
 import CartPlaceholder from "../../Assets/cart-placeholder";
 
 const CartPage = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { cartData, removeFromCart, getSubtotal, addToCart } =
     useContext(CartContext);
   const { dropDownRef, editProductRef } = useComponentVisible();
@@ -41,7 +41,7 @@ const CartPage = () => {
     <div className="cart-page-container">
       <div className="cart-page-container__left">
         <h3>Your bag</h3>
-        <p onClick={() => history.goBack()}>
+        <p onClick={() => navigate.goBack()}>
           <span>
             <FontAwesomeIcon icon={faChevronLeft} />
           </span>
