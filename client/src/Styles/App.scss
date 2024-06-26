@@ -16,6 +16,7 @@
 @import "../Components/GridLayout/GridLayout";
 @import "../Pages/AccountPage/AccountPage";
 @import "../Pages/Checkout/Checkout";
+@import "../Components/Error/Error";
 
 .loading-container {
   height: calc(100vh - 350px);
