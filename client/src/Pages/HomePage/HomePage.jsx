@@ -16,6 +16,7 @@ import CarouselSkeleton from "../../Components/SkeletonLoading/CarouselSkeleton"
 import { Link } from "react-router-dom";
 import { convertUSDToINR } from "../../Helpers/utils";
 import Placeholder from "../../Assets/slider-placeholder";
+import Error from "../../Components/Error/Error";
 
 export default function HomePage() {
   const sliderRef = useRef(null);
@@ -36,15 +37,24 @@ export default function HomePage() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const { data: newInData, isLoading } = useQuery(
-    "data",
-    () => axios(requestNewIn),
-    {
-      refetchOnWindowFocus: false,
-      staleTime: 2 * 60 * 1000,
-      cacheTime: 5 * 60 * 1000,
-    }
-  );
+  const {
+    data: newInData,
+    isLoading,
+    error,
+    isError,
+  } = useQuery("data", () => axios(requestNewIn), {
+    refetchOnWindowFocus: false,
+    staleTime: 2 * 60 * 1000,
+    cacheTime: 5 * 60 * 1000,
+  });
+
+  if (isError) {
+    return <Error error={error} />;
+  }
+
+  if (!newInData || newInData?.data?.results.length === 0) {
+    return <Error error={"No data found"} />;
+  }
 
   return (
     <div className="home-container">
@@ -107,7 +117,7 @@ export default function HomePage() {
               infinite={false}
               afterChange={(e) => setSliderIndex(e)}
             >
-              {newInData.data.results.map((item) => (
+              {newInData?.data?.results.map((item) => (
                 <Link to={`/product/${item?.id}`}>
                   <div
                     key={item.id}

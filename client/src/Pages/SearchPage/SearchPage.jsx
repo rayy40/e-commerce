@@ -9,6 +9,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import GridLayout from "../../Components/GridLayout/GridLayout";
 import GridLayoutSkeleton from "../../Components/SkeletonLoading/GridLayoutSkeleton";
 import { SearchContext } from "../../Helpers/SearchContext";
+import Error from "../../Components/Error/Error";
 
 const SearchPage = () => {
   const { name } = useParams();
@@ -29,7 +30,7 @@ const SearchPage = () => {
     }
   }, [searchTerm, navigate]);
 
-  const { data, refetch, isLoading } = useQuery(
+  const { data, refetch, isLoading, isError, error } = useQuery(
     ["shoeDataByName", name],
     () =>
       axios({
@@ -51,8 +52,6 @@ const SearchPage = () => {
     }
   }, [name, refetch]);
 
-  console.log(data);
-
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -63,6 +62,10 @@ const SearchPage = () => {
       navigate(`/search/${newSearchQuery}`);
     }
   };
+
+  if (isError) {
+    return <Error error={error} />;
+  }
 
   return (
     <div className="search-page-container">
@@ -86,22 +89,25 @@ const SearchPage = () => {
       <div className="search-page-container__products">
         {isLoading ? (
           <GridLayoutSkeleton />
-        ) : data?.results?.length > 0 ? (
-          <GridLayout page={data} />
         ) : (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: "15em",
-            }}
-            className="unavailbale-container"
-          >
-            <h2 style={{ color: "#333", fontWeight: "500" }}>
-              No such product available.
-            </h2>
-          </div>
+          data &&
+          (data?.results?.length > 0 ? (
+            <GridLayout page={data} />
+          ) : (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: "15em",
+              }}
+              className="unavailbale-container"
+            >
+              <h2 style={{ color: "#333", fontWeight: "500" }}>
+                No product available.
+              </h2>
+            </div>
+          ))
         )}
       </div>
     </div>

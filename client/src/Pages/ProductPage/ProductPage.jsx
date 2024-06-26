@@ -23,6 +23,7 @@ import CarouselSkeleton from "../../Components/SkeletonLoading/CarouselSkeleton"
 import { Link } from "react-router-dom";
 import { convertUSDToINR } from "../../Helpers/utils";
 import Placeholder from "../../Assets/slider-placeholder";
+import Error from "../../Components/Error/Error";
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -57,7 +58,7 @@ const ProductPage = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const { data, isLoading } = useQuery(
+  const { data, isLoading, isError, error } = useQuery(
     "shoeDataById",
     () =>
       axios({
@@ -69,7 +70,12 @@ const ProductPage = () => {
     }
   );
 
-  const { data: similarShoesData, isLoading: isSimilarShoesLoading } = useQuery(
+  const {
+    data: similarShoesData,
+    isLoading: isSimilarShoesLoading,
+    isError: isSimilarShoesError,
+    error: similarShoesError,
+  } = useQuery(
     ["similarShoesData", id],
     () =>
       axios({
@@ -84,6 +90,18 @@ const ProductPage = () => {
       enabled: !!data?.results?.[0]?.styleId,
     }
   );
+
+  if (isSimilarShoesError) {
+    return <Error error={similarShoesError} />;
+  }
+
+  if (isError) {
+    return <Error error={error} />;
+  }
+
+  if (!data || data?.results?.length === 0) {
+    return <Error error={"No data found"} />;
+  }
 
   return (
     <div className="product-page-container__wrapper">

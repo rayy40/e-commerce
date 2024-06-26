@@ -18,6 +18,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { convertUSDToINR } from "../../Helpers/utils";
 import MenPlaceholder from "../../Assets/men-placeholder";
+import Error from "../../Components/Error/Error";
 
 export default function FilterPage() {
   let sliderRef = useRef(null);
@@ -42,7 +43,7 @@ export default function FilterPage() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const { isLoading } = useQuery(
+  const { isLoading, isError, error } = useQuery(
     "shoeDataByCategory",
     ({ pageParam = 1 }) =>
       axios({
@@ -62,6 +63,8 @@ export default function FilterPage() {
   );
 
   useEffect(() => {
+    if (!shoeData) return;
+
     const predefinedColors = {
       Black: "#000000",
       White: "#FFFFFF",
@@ -142,6 +145,10 @@ export default function FilterPage() {
     );
     setFilteredArray(tempFiltered);
   };
+
+  if (isError) {
+    return <Error error={error} />;
+  }
 
   return (
     <div className="filter-page-container">
