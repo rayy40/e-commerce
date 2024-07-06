@@ -99,10 +99,6 @@ const ProductPage = () => {
     return <Error error={error} />;
   }
 
-  if (!data || data?.results?.length === 0) {
-    return <Error error={"No data found"} />;
-  }
-
   return (
     <div className="product-page-container__wrapper">
       {isLoading ? (

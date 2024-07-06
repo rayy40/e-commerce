@@ -52,10 +52,6 @@ export default function HomePage() {
     return <Error error={error} />;
   }
 
-  if (!newInData || newInData?.data?.results.length === 0) {
-    return <Error error={"No data found"} />;
-  }
-
   return (
     <div className="home-container">
       <div className="home-container__gender">
